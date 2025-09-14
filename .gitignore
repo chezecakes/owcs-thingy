@@ -1,0 +1,16 @@
+# Ignore virtual environments
+.venv/
+venv/
+
+# Ignore Python bytecode/cache
+__pycache__/
+*.py[cod]
+
+# VS Code settings
+.vscode/
+
+# file for testing code
+testing.py
+
+# .env (for storing bot token and global vars)
+.env
