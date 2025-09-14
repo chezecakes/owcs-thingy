@@ -36,13 +36,6 @@ async def tournamentLoader():
 
 @owtvBot.command(name="tournaments") # "!tournaments" : sends an embedded msg of the currently listed tournaments on OWTV.gg/tournaments (flags to be added)
 async def tournaments(ctx):
-    try:
-        print('Fetching tournaments...')
-        await saveTournaments(OWTV_URL, pages[1])
-    except Exception as e:
-        print(f'{FETCH_TOURNAMENT_ERR}: {e}')
-        tournamentLoader.stop()
-    
     tournaments = getTournamentList()
     
     if not tournaments:
@@ -59,9 +52,10 @@ async def tournaments(ctx):
     for t in tournaments:
         name = t.split('\n')[0] # get the first element in the split index (since it is always the tournament name)
         link = OWTV_URL.format(t.split(':')[1])
-        embed.add_field(name=name, value=f'[View Tournament]({link})', inline=False)
+        embed.add_field(name=name, value=f'[View]({link})', inline=False)
 
     embed.set_footer(text=f'Data taken from OWTV.gg at {getDateAndTime()} (Toronto)')
+    # embed.set_thumbnail() to be completed
 
     await ctx.send(embed=embed)
 

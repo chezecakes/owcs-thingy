@@ -9,3 +9,4 @@ TODO:
     - icons
     - timestamp
     - merge name and link to look cleaner
+    - add emojis of owcs logos
