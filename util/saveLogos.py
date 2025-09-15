@@ -1,4 +1,3 @@
-import json
 from pathlib import Path
 from bs4 import BeautifulSoup
 import os
@@ -20,9 +19,14 @@ def saveLogos(OWTV_URL, tournamentJSON):
     print(cleanedImageLinks) # debug
 
     for link in cleanedImageLinks:
-        response = requests.get(OWTV_URL.format(link))
+        fullLink = OWTV_URL.format(link)
+        response = requests.get(fullLink)
+        imgName = os.path.basename(link)
+        imgPath = Path(__file__).parent.parent / 'data' / 'images' / imgName
 
-        # if response.status_code == 200:
-        #     with open()
-
-saveLogos('https://owtv.gg{}', getTournamentJSON())
+        if response.status_code == 200:
+            with open(imgPath, 'wb') as imgFile:
+                imgFile.write(response.content)
+            print(f'Saved image: {imgPath}')
+        else:
+            print(f'Failed to retrieve image from {fullLink}')

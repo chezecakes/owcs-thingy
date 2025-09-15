@@ -59,7 +59,7 @@ async def tournaments(ctx):
         embed.add_field(name=name, value=f'[View]({link})', inline=False)
 
     embed.set_footer(text=f'Data from OWTV.gg | OWCS Logo from Liquipedia.net')
-    embed.set_thumbnail(url='https://github.com/chezecakes/owcs-thingy/blob/main/data/OWCS_Logo_Transparent.png?raw=true')
+    embed.set_thumbnail(url='https://github.com/chezecakes/owcs-thingy/blob/main/data/images/OWCS_Logo_Transparent.png?raw=true')
 
     await ctx.send(embed=embed)
 
