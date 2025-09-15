@@ -1,6 +1,7 @@
 from util.saveTournaments import saveTournaments
 from util.getTournamentList import getTournamentList
 from util.getTournamentJSON import getTournamentJSON
+from util.getEmojis import getEmojis
 from dotenv import load_dotenv
 import os
 import discord
@@ -17,6 +18,7 @@ PREFIX = os.getenv("GLOBAL_PREFIX")
 FETCH_TOURNAMENT_ERR = 'Failed to fetch tournaments.'
 pages = ['/matches', '/tournaments', '/news']
 tournamentDataJson = getTournamentJSON() # json data from tournaments page, use this for all tournament related commands/methods
+emojis = getEmojis()
 
 intents = discord.Intents.default()
 intents.message_content = True
