@@ -4,6 +4,7 @@ from util.getTournamentJSON import getTournamentJSON
 from util.getEmojis import getEmojis
 from dotenv import load_dotenv
 import os
+import re
 import discord
 from discord.ext import commands, tasks
 import time
@@ -55,7 +56,15 @@ async def tournaments(ctx):
     )
 
     for t in tournaments:
-        name = t.split('\n')[0] # get the first element in the split index (since it is always the tournament name)
+        emoji = ''
+        # for e in emojis: # get the tournament's respective emoji (logo)
+        #     if e.split(':')[1] in t:
+        #         emoji = e
+        #         print(emoji) # debug
+        #     else:
+        #         emoji = "" # in case the emoji is not found, don't add one
+
+        name = emoji + " " + t.split('\n')[0] # get the first element in the split index (since it is always the tournament name)
         link = OWTV_URL.format(t.split(':')[1])
         embed.add_field(name=name, value=f'[View]({link})', inline=False)
 

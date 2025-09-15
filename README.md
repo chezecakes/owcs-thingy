@@ -10,3 +10,5 @@ TODO:
     - timestamp
     - merge name and link to look cleaner
     - add emojis of owcs logos
+
+<!-- ![Overwatch Champions Series Full Logo](data/images/Overwatch_Champions_Series_full_darkmode.png) -->
