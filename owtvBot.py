@@ -63,4 +63,8 @@ async def tournaments(ctx):
 
     await ctx.send(embed=embed)
 
+@owtvBot.command(name="test") # command for testing
+async def test(ctx):
+    ctx.send('<:pacific:1417219343128723627>\n<:na:1417219329287524586>\n<:korea:1417219320769024050>\n<:japan:1417219312133083333>\n<:emea:1417219294093115523>\n<:china:1417219278595428362>\n<:asia:1417219268558323833>')
+
 owtvBot.run(BOT_TOKEN)
