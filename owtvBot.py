@@ -1,6 +1,5 @@
 from util.saveTournaments import saveTournaments
 from util.getTournamentList import getTournamentList
-from util.getDateAndTime import getDateAndTime
 from util.getTournamentJSON import getTournamentJSON
 from dotenv import load_dotenv
 import os
