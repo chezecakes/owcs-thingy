@@ -4,9 +4,9 @@ import os
 import requests
 from urllib.parse import urlparse
 
-from getTournamentJSON import getTournamentJSON # for debugging, remove later
-
 def saveLogos(OWTV_URL, tournamentJSON):
+    print("Saving OWCS logos...")
+
     imageLinks = []
 
     for tournament in tournamentJSON:
@@ -16,7 +16,6 @@ def saveLogos(OWTV_URL, tournamentJSON):
         imageLinks.extend(imgSources)
 
     cleanedImageLinks = list(set(imageLinks)) # removes duplicate values by turning the original list into a set, and then back into a list
-    print(cleanedImageLinks) # debug
 
     for link in cleanedImageLinks:
         fullLink = OWTV_URL.format(link)
