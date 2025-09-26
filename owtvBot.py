@@ -16,9 +16,8 @@ load_dotenv()
 BOT_TOKEN = os.getenv("BOT_TOKEN")
 OWTV_URL = os.getenv("OWTV_URL")
 PREFIX = os.getenv("GLOBAL_PREFIX")
-FETCH_TOURNAMENT_ERR = 'Failed to fetch tournaments.'
+FETCH_TOURNAMENT_ERR = 'Failed to fetch tournaments'
 pages = ['/matches', '/tournaments', '/news']
-tournamentDataJson = getTournamentJSON() # json data from tournaments page, use this for all tournament related commands/methods
 emojis = getEmojis()
 
 intents = discord.Intents.default()
@@ -41,7 +40,7 @@ async def tournamentLoader():
 
 @owtvBot.command(name="tournaments") # "!tournaments" : sends an embedded msg of the currently listed tournaments on OWTV.gg/tournaments (flags to be added)
 async def tournaments(ctx):
-    tournaments = getTournamentList(tournamentDataJson)
+    tournaments = getTournamentList(getTournamentJSON())
     
     if not tournaments:
         await ctx.send("No tournaments found right now.")

@@ -15,6 +15,7 @@ async def saveTournaments(URL, pageToScrape):
         context = await browser.new_context()
         page = await context.new_page()
 
+        # start scraping webpage for html data
         startTime = time.time()
 
         await page.goto(URL.format(pageToScrape), wait_until='domcontentloaded') # wait until there are no more network requests on the page
@@ -27,11 +28,12 @@ async def saveTournaments(URL, pageToScrape):
         endTime = time.time()
         elapsed = endTime - startTime
         print(f'Page parsed in {elapsed} sec')
+        # end data scraping
 
         # looks for tournament cards with anchor links to the respective tournament
         anchors = page.locator("a[href*='/tournaments']")
         count = await anchors.count()
-        
+
         for i in range(count):
             a = anchors.nth(i)
             try:
@@ -52,19 +54,16 @@ async def saveTournaments(URL, pageToScrape):
             tournaments.append({
                 "link": href,
                 "anchor_text": text,
-                "card_snapshot": extractFromCard(card_html)
+                "card_snapshot": card_html
             })
-
-        # If the site uses list items or sections:
-        # cards = page.locator("article, .card, .tournament, .competition, [data-test='tournament']")
-        # for i in range(cards.count()):
-        #    ... similar extraction ...
 
         await browser.close()
 
-    # Remove exact duplicates and save
+    # post processing: Remove exact duplicates and the tournament header card (which isn't an actual tournament; it is always the first element), then save
     unique = { (t.get("link") or t.get("anchor_text")): t for t in tournaments }
     output = list(unique.values())
+    del output[0]
+
     with open(toJSONPath, "w", encoding="utf-8") as f:
         json.dump(output, f, indent=2, ensure_ascii=False)
 
