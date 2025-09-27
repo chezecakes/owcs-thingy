@@ -10,6 +10,7 @@ from discord.ext import commands, tasks
 import time
 import asyncio
 from datetime import datetime, timezone
+from bs4 import BeautifulSoup
 
 load_dotenv()
 
@@ -40,7 +41,8 @@ async def tournamentLoader():
 
 @owtvBot.command(name="tournaments") # "!tournaments" : sends an embedded msg of the currently listed tournaments on OWTV.gg/tournaments (flags to be added)
 async def tournaments(ctx):
-    tournaments = getTournamentList(getTournamentJSON())
+    print(f'Command !tournaments called by {ctx.author} at {datetime.now(timezone.utc)}')
+    tournaments = getTournamentJSON()
     
     if not tournaments:
         await ctx.send("No tournaments found right now.")
@@ -55,16 +57,18 @@ async def tournaments(ctx):
     )
 
     for t in tournaments:
-        emoji = ''
-        # for e in emojis: # get the tournament's respective emoji (logo)
-        #     if e.split(':')[1] in t:
-        #         emoji = e
-        #         print(emoji) # debug
-        #     else:
-        #         emoji = "" # in case the emoji is not found, don't add one
+        # get the tournament's respective emoji (logo)
+        soup = BeautifulSoup(t["card_snapshot"], 'html.parser')
+        img = os.path.basename(soup.find('img')['src'])
 
-        name = emoji + " " + t.split('\n')[0] # get the first element in the split index (since it is always the tournament name)
-        link = OWTV_URL.format(t.split(':')[1])
+        emoji = ''
+        for e in emojis:
+            if e.split(':')[1] in img:
+                emoji = e
+
+        # create fields of the embedded msg
+        name = emoji + " " + t["anchor_text"].split('\n')[0] # get the first element in the split index (since it is always the tournament name)
+        link = OWTV_URL.format(t["link"])
         embed.add_field(name=name, value=f'[View]({link})', inline=False)
 
     embed.set_footer(text=f'Data from OWTV.gg | OWCS Logo from Liquipedia.net')
