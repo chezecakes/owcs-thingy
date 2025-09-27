@@ -4,6 +4,7 @@ from pathlib import Path
 import asyncio
 from playwright.async_api import async_playwright
 from .extractFromCard import extractFromCard
+from bs4 import BeautifulSoup
 
 async def saveTournaments(URL, pageToScrape):
     tournaments = []
@@ -59,10 +60,21 @@ async def saveTournaments(URL, pageToScrape):
 
         await browser.close()
 
-    # post processing: Remove exact duplicates and the tournament header card (which isn't an actual tournament; it is always the first element), then save
+    # post processing: 
+    # Remove exact duplicates and the tournament header card (which isn't an actual tournament; it is always the first element)
+    # remove card snapshot html that is irrelevant to each card
+    # save to files
     unique = { (t.get("link") or t.get("anchor_text")): t for t in tournaments }
     output = list(unique.values())
     del output[0]
+
+    for item in output:
+        soup = BeautifulSoup(item['card_snapshot'], 'html.parser')
+        matching_a = soup.find('a', href=item['link'])
+        if matching_a:
+            item['card_snapshot'] = str(matching_a)
+        else:
+            item['card_snapshot'] = None
 
     with open(toJSONPath, "w", encoding="utf-8") as f:
         json.dump(output, f, indent=2, ensure_ascii=False)
