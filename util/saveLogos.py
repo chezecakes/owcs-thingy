@@ -2,7 +2,6 @@ from pathlib import Path
 from bs4 import BeautifulSoup
 import os
 import requests
-from urllib.parse import urlparse
 
 def saveLogos(OWTV_URL, tournamentJSON):
     print("Saving OWCS logos...")
