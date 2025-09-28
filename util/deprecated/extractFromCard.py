@@ -1,3 +1,5 @@
+# DEPRECATED AS OF 9/28/2025
+
 import re
 
 def extractFromCard(card_html):

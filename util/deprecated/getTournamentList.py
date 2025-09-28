@@ -1,3 +1,5 @@
+# DEPRECATED AS OF 9/28/2025
+
 import json
 from pathlib import Path
 

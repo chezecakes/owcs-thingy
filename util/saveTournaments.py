@@ -3,7 +3,6 @@ import json
 from pathlib import Path
 import asyncio
 from playwright.async_api import async_playwright
-from .extractFromCard import extractFromCard
 from bs4 import BeautifulSoup
 
 async def saveTournaments(URL, pageToScrape):
