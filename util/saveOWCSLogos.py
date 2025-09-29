@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 import os
 import requests
 
-def saveLogos(OWTV_URL, tournamentJSON):
+def saveOWCSLogos(OWTV_URL, tournamentJSON):
     print("Saving OWCS logos...")
 
     imageLinks = []
