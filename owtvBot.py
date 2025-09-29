@@ -1,6 +1,7 @@
 from util.saveTournaments import saveTournaments
 from util.getTournamentJSON import getTournamentJSON
 from util.getEmojis import getEmojis
+from util.logCommand import logCommand
 from dotenv import load_dotenv
 import os
 import discord
@@ -37,7 +38,7 @@ async def tournamentLoader():
 
 @owtvBot.command(name="tournaments") # "!tournaments" : sends an embedded msg of the currently listed tournaments on OWTV.gg/tournaments (flags to be added)
 async def tournaments(ctx):
-    print(f'{datetime.now(timezone.utc)} UTC | Command !tournaments called by {ctx.author} in Guild: {ctx.guild}, Channel: {ctx.channel}')
+    logCommand(ctx)
     tournaments = getTournamentJSON()
     
     if not tournaments:
