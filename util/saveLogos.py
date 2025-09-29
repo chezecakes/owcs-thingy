@@ -9,7 +9,7 @@ def saveLogos(OWTV_URL, tournamentJSON):
     imageLinks = []
 
     for tournament in tournamentJSON:
-        soup = BeautifulSoup(tournament["card_snapshot"]["raw"], 'html.parser')
+        soup = BeautifulSoup(tournament["card_snapshot"], 'html.parser')
         imgTags = soup.find_all('img')
         imgSources = [img['src'] for img in imgTags if 'src' in img.attrs]
         imageLinks.extend(imgSources)

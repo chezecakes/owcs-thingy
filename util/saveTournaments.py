@@ -1,13 +1,11 @@
 import time
 import json
 from pathlib import Path
-import asyncio
 from playwright.async_api import async_playwright
 from bs4 import BeautifulSoup
 
 async def saveTournaments(URL, pageToScrape):
     tournaments = []
-    toHTMLPath = Path(__file__).parent.parent / 'data' / 'OWTV_tournaments.html'
     toJSONPath = Path(__file__).parent.parent / 'data' / 'tournaments.json'
 
     async with async_playwright() as p:
@@ -15,20 +13,14 @@ async def saveTournaments(URL, pageToScrape):
         context = await browser.new_context()
         page = await context.new_page()
 
-        # start scraping webpage for html data
+        # scrape webpage for html data
         startTime = time.time()
-
         await page.goto(URL.format(pageToScrape), wait_until='domcontentloaded') # wait until there are no more network requests on the page
         await page.wait_for_timeout(5000)
-        html = await page.content()
-
-        with open(toHTMLPath, 'w', encoding='utf-8') as f:
-            f.write(html)
         
         endTime = time.time()
         elapsed = endTime - startTime
         print(f'Page parsed in {elapsed} sec')
-        # end data scraping
 
         # looks for tournament cards with anchor links to the respective tournament
         anchors = page.locator("a[href*='/tournaments']")
