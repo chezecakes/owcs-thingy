@@ -17,7 +17,7 @@ async def saveTournaments(URL, pageToScrape):
         startTime = time.time()
         await page.goto(URL.format(pageToScrape), wait_until='domcontentloaded') # wait until there are no more network requests on the page
         await page.wait_for_timeout(5000)
-        
+
         endTime = time.time()
         elapsed = endTime - startTime
         print(f'Page parsed in {elapsed} sec')
@@ -70,4 +70,4 @@ async def saveTournaments(URL, pageToScrape):
     with open(toJSONPath, "w", encoding="utf-8") as f:
         json.dump(output, f, indent=2, ensure_ascii=False)
 
-    print(f"Saved {len(output)} items to tournaments.json and raw HTML to OWTV_tournaments.html")
+    print(f"Saved {len(output)} items to {toJSONPath}")
