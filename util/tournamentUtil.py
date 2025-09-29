@@ -4,6 +4,16 @@ from pathlib import Path
 from playwright.async_api import async_playwright
 from bs4 import BeautifulSoup
 
+# get the JSON data from tournaments.json
+def getTournamentJSON():
+    toJSONPath = Path(__file__).parent.parent / 'data' / 'tournaments.json'
+
+    with open(toJSONPath, 'r') as file:
+        data = json.load(file)
+    
+    return data
+
+# save tournament cards as json data from owtv.gg/tournaments
 async def saveTournaments(URL, pageToScrape):
     tournaments = []
     toJSONPath = Path(__file__).parent.parent / 'data' / 'tournaments.json'

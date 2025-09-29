@@ -1,5 +1,4 @@
-from util.saveTournaments import saveTournaments
-from util.getTournamentJSON import getTournamentJSON
+from util.tournamentUtil import *
 from util.getEmojis import getEmojis
 from util.logCommand import logCommand
 from dotenv import load_dotenv
