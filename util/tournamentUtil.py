@@ -27,10 +27,10 @@ async def saveTournaments(URL, pageToScrape):
         startTime = time.time()
         await page.goto(URL.format(pageToScrape), wait_until='domcontentloaded') # wait until there are no more network requests on the page
         await page.wait_for_timeout(5000)
-
         endTime = time.time()
         elapsed = endTime - startTime
         print(f'Page parsed in {elapsed} sec')
+        # end scraping
 
         # looks for tournament cards with anchor links to the respective tournament
         anchors = page.locator("a[href*='/tournaments']")

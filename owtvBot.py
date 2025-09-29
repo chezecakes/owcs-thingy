@@ -26,7 +26,7 @@ async def on_ready():
     print("OWTV.gg Bot online!")
     await tournamentLoader.start()
 
-@tasks.loop(minutes=10)
+@tasks.loop(minutes=1440) # loop for refreshing the tournaments listed on owtv.gg's respective page; runs every 24 hrs
 async def tournamentLoader():
     try:
         print('Fetching tournaments...')
@@ -71,6 +71,10 @@ async def tournaments(ctx):
     embed.set_thumbnail(url='https://github.com/chezecakes/owcs-thingy/blob/main/data/images/OWCS_Logo_Transparent.png?raw=true')
 
     await ctx.send(embed=embed)
+
+@owtvBot.command(name="matches") # "!matches <region>" : sends an embedded msg of all of the upcoming matches for the specified region
+async def matches(ctx):
+    logCommand(ctx)
 
 @owtvBot.command(name="test") # command for testing
 async def test(ctx):
